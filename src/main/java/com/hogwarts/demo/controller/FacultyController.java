@@ -59,7 +59,7 @@ public class FacultyController {
 
         @GetMapping("/get/by-student/{id}")
         public Faculty findStudents(@PathVariable("id") long id) {
-
+                return facultyService.findStudents(id);
         }
 }
 

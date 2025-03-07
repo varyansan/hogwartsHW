@@ -59,7 +59,6 @@ public class FacultyServiceImpl {
         return facultyRepository.findFacultyByNameOrColorIgnoreCase(color, name);
     }
 
-    @Override
     public Faculty findStudents(long id){
         Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
         return student.getFaculty();
