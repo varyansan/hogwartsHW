@@ -50,6 +50,17 @@ public class FacultyController {
         public List<Faculty> colorsOfFaculty(@RequestParam String color) {
                 return facultyService.facultyColor(color);
         }
+
+        @RequestMapping("/get/by-color-or-name")
+        public List<Faculty> colorsOrNameOfFaculty(@RequestParam String color,
+                                                   @RequestParam String name) {
+                return facultyService.colorsOrNameOfFaculty(color, name);
+        }
+
+        @GetMapping("/get/by-student/{id}")
+        public Faculty findStudents(@PathVariable("id") long id) {
+
+        }
 }
 
 

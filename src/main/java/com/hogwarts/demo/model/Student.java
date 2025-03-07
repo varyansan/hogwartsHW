@@ -1,5 +1,6 @@
 package com.hogwarts.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -18,14 +19,26 @@ public class Student {
 
     private int age;
 
-    public Student(String name, int age) {
+    @ManyToOne
+    private Faculty faculty;
+
+    public Student(String name, int age, Faculty faculty) {
         this.name = name;
         this.age = age;
+        this.faculty = faculty;
     }
 
     public Long getId() {
 
         return id;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public Integer getAge() {

@@ -50,4 +50,12 @@ public class StudentController {
     public List<Student> studentAge(@PathVariable Integer age) {
         return studentService.getAge(age);
     }
+
+    @GetMapping("/get/by-age-between")
+    public List<Student> findAllByAge(@RequestParam("min") int min,
+                                      @RequestParam("max") int max) {
+        return studentService.findByAgeBetween(min, max);
+    }
 }
+
+

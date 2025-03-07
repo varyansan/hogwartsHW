@@ -1,6 +1,9 @@
 package com.hogwarts.demo.service;
 
 import com.hogwarts.demo.model.Faculty;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 public interface FacultyService {
 
@@ -11,4 +14,8 @@ public interface FacultyService {
     Faculty editFaculty(Faculty facultyUpdate);
 
     Faculty deleteFaculty(long id);
+
+    List<Faculty> colorsOrNameOfFaculty(String color, String name);
+
+    Faculty findStudents(long id);
 }

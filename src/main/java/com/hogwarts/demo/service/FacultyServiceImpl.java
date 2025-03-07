@@ -1,9 +1,13 @@
 package com.hogwarts.demo.service;
 
 import com.hogwarts.demo.exception.FacultyNotFoundException;
+import com.hogwarts.demo.exception.StudentNotFoundException;
 import com.hogwarts.demo.model.Faculty;
+import com.hogwarts.demo.model.Student;
 import com.hogwarts.demo.repository.FacultyRepository;
+import com.hogwarts.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +19,11 @@ public class FacultyServiceImpl {
     @Autowired
     private final FacultyRepository facultyRepository;
 
-    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+    private final StudentRepository studentRepository;
+
+    public FacultyServiceImpl(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
 
     public Faculty addFaculty(Faculty faculty) {
@@ -46,5 +53,15 @@ public class FacultyServiceImpl {
         return facultyRepository.findAll().stream().
                 filter(faculty -> faculty.getColor() == color).
                 collect(Collectors.toList());
+    }
+
+    public List<Faculty> colorsOrNameOfFaculty(String color, String name) {
+        return facultyRepository.findFacultyByNameOrColorIgnoreCase(color, name);
+    }
+
+    @Override
+    public Faculty findStudents(long id){
+        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+        return student.getFaculty();
     }
 }

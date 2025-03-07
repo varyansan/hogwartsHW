@@ -38,6 +38,7 @@ public class StudentServiceImpl implements StudentService{
         return student;
     }
 
+    @Override
     public Student editStudent(Student studentUpdate) {
         if (!studentRepository.existsById(studentUpdate.getId())) {
             throw new FacultyNotFoundException(studentUpdate.getId());
@@ -45,10 +46,15 @@ public class StudentServiceImpl implements StudentService{
         return studentRepository.save(studentUpdate);
     }
 
-
+    @Override
     public List<Student> getAge(Integer age) {
         return studentRepository.findAll().stream().
                 filter(student -> student.getAge()==age).
                 collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Student> findByAgeBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
     }
 }
